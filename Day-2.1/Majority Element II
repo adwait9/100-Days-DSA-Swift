@@ -1,0 +1,78 @@
+/*
+ Majority Element II
+ Solved
+ Medium
+ Topics
+ Companies
+ Hint
+ Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times.
+ Example 1:
+
+ Input: nums = [3,2,3]
+ Output: [3]
+ Example 2:
+
+ Input: nums = [1]
+ Output: [1]
+ Example 3:
+
+ Input: nums = [1,2]
+ Output: [1,2]
+
+ */
+//BF - TC- o(n2)
+func majorityElement(_ nums: [Int]) -> [Int] {
+    var result:[Int] = []
+    for num in nums {
+        var count = 0
+        for otherNum in nums {
+            if otherNum == num {
+                count += 1
+            }
+        }
+        if count > nums.count / 3 && !result.contains(num){
+            result.append(num)
+        }
+    }
+    return result
+    
+}
+// TC - n SC - 1
+func majorityElementII(_ nums: [Int]) -> [Int] {
+var result:[Int] = []
+       var candidate1 = -1, count1 = 0, candidate2 = -1, count2 = 0
+       for num in nums {
+           if num == candidate1 {
+               count1 += 1
+           } else if num == candidate2 {
+               count2 += 1
+           } else if count1 == 0 {
+               candidate1 = num
+               count1 = 1
+           } else if count2 == 0 {
+               candidate2 = num
+               count2 = 1
+           } else {
+               count1 -= 1
+               count2 -= 1
+           }
+       }
+       count1 = 0
+       count2 = 0
+       for num in nums {
+           if num == candidate1 {
+               count1 += 1
+           } else if num == candidate2 {
+               count2 += 1
+           }
+       }
+           if count1 > nums.count / 3 {
+               result.append(candidate1)
+           }
+           if count2 > nums.count / 3 {
+               result.append(candidate2)
+           }
+       
+       return result
+
+   }
